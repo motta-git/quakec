@@ -243,6 +243,10 @@ void() W_PutOut =
 	self.switch_delay > time)
 		return;
 
+	// Prevent repeated activation while the switch semi-action is active
+	if (self.semi_actions & SEMIACTION_WEAPONSWAP)
+		return;
+
 	float duration = getWeaponDelay(self.weapon, PUTOUT);
 	self.switch_delay = duration + time;
 	self.semi_actions |= SEMIACTION_WEAPONSWAP;
